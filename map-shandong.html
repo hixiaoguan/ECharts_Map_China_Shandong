@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+    <title>ECharts-山东地图</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script src="js/province/shandong.js"></script>
+    <style>#china-map {width:1000px; height: 1000px;margin: auto;}</style>
+</head>
+<body>
+
+<div id="china-map"></div>
+
+<script>
+    function initEcharts(pName){
+        var myChart1 = echarts.init(document.getElementById('china-map'));
+        var option = {
+            title : {
+                x:'center'
+            },
+            tooltip : {//提示框组件。
+                trigger: 'item'//数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+            },
+            series : [
+                {
+                    name: '访问量',
+                    type: 'map',
+                    mapType: pName,
+                    roam: false,//是否开启鼠标缩放和平移漫游
+                    itemStyle:{//地图区域的多边形 图形样式
+                        normal:{//是图形在默认状态下的样式
+                            label:{
+                                show:false,//是否显示标签
+                                textStyle: {
+                                    color: "rgb(249, 249, 249)"
+                                }
+                            }
+                        },
+                        emphasis:{//是图形在高亮状态下的样式,比如在鼠标悬浮或者图例联动高亮时
+                            label:{show:true}
+                        }
+                    },
+                    top:"3%",//组件距离容器的距离
+                    //区域可以设置颜色
+                    //data: [
+                    //{name: '淄博市', value: 3, label: {normal: {show: true}},
+                    //     itemStyle: {
+                    //         normal: {
+                    //             areaColor: '#ff4854'
+                    //         },
+                    //         emphasis: {
+                    //             areaColor: '#ff4854',
+                    //             borderWidth: 0
+                    //         }
+                    //     }
+                    // },
+                    //],
+                    data: [
+                        {name: '济南市', value: 1},
+                        {name: '青岛市', value: 2},
+                        {name: '淄博市', value: 3},
+                        {name: '枣庄市', value: 4},
+                    ]
+                }
+            ]
+        };
+        myChart1.setOption(option);
+        myChart1.on('click', function (params) {
+            var dataIndex = params.dataIndex;
+            console.log(params);
+        });
+    }
+    initEcharts('山东');
+</script>
+
+</body>
+</html>
